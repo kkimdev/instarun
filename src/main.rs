@@ -83,13 +83,13 @@ async fn main() -> Result<()> {
     let pattern = regex::bytes::Regex::new("^/usr/bin/.*").unwrap();
     let query_result = reader.query(&pattern).run().unwrap();
 
-    // for v in query_result {
-    //     let vv = v.unwrap();
-    //     // dbg!(vv.0);
-    //     println!("{}", String::from_utf8(vv.1.path).unwrap());
-    //     // dbg!(vv.1.node);
-    // }
+    for v in query_result {
+        let vv = v.unwrap();
+        // dbg!(vv.0);
+        println!("{}", String::from_utf8(vv.1.path).unwrap());
+        // dbg!(vv.1.node);
+    }
 
-    println!("{}", query_result.count());
+    // println!("{}", query_result.count());
     return Ok(());
 }
