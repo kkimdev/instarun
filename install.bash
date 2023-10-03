@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
 INSTALL_DIR="${DG_CONFIG_HOME:-"$HOME/.config"}"
-mkdir -p "$INSTALL_DIR/neveri"
-cat << 'EOF' > "$INSTALL_DIR/neveri/command_not_found_hook.sh"
+mkdir -p "$INSTALL_DIR/instarun"
+cat << 'EOF' > "$INSTALL_DIR/instarun/command_not_found_hook.sh"
 #!/usr/bin/env bash
 
 # https://github.com/nix-community/nix-index/blob/master/command-not-found.sh
 
 # for bash
 command_not_found_handle () {
-  echo "Executing \`$@\` with neveri. (To disable this message, run \`neveri install --run-slient\`)" >&2
+  echo "Executing \`$@\` with instarun. (To disable this message, run \`instarun install --run-slient\`)" >&2
 
   , $@
   return $?
@@ -21,7 +21,7 @@ command_not_found_handler () {
     return $?
 }
 
-neveri() {
+instarun() {
   # TODO: Implement commands
   #       update
   #       uninstall
@@ -32,17 +32,17 @@ neveri() {
 EOF
 
 # ~/.bashrc
-grep -Pzo '\n# BEGIN neveri\n.*\n# END neveri' "$HOME/.bashrc" # If it fails, should skip for safety.
-sed -i "/# BEGIN neveri/,/# END neveri/d" "$HOME/.bashrc"
+grep -Pzo '\n# BEGIN instarun\n.*\n# END instarun' "$HOME/.bashrc" # If it fails, should skip for safety.
+sed -i "/# BEGIN instarun/,/# END instarun/d" "$HOME/.bashrc"
 cat << EOF >> "$HOME/.bashrc"
 
-# BEGIN neveri
-. "$INSTALL_DIR/neveri/command_not_found_hook.sh"
-# END neveri
+# BEGIN instarun
+. "$INSTALL_DIR/instarun/command_not_found_hook.sh"
+# END instarun
 EOF
 
 # ~/.zshrc
 # TODO
 
 # Enable for the current shell
-. "$INSTALL_DIR/neveri/command_not_found_hook.sh"
+. "$INSTALL_DIR/instarun/command_not_found_hook.sh"
