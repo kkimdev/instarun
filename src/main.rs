@@ -80,14 +80,16 @@ async fn main() -> Result<()> {
     let mut reader = nix_index::database::Reader::open("index-x86_64-linux").unwrap();
 
     // let result = reader.dump().unwrap();
-    let pattern = regex::bytes::Regex::new("/bin/.*").unwrap();
+    let pattern = regex::bytes::Regex::new("^/usr/bin/.*").unwrap();
     let query_result = reader.query(&pattern).run().unwrap();
 
-    for v in query_result {
-        let vv = v.unwrap();
-        dbg!(vv.0);
-        dbg!(vv.1.path);
-        dbg!(vv.1.node);
-    }
+    // for v in query_result {
+    //     let vv = v.unwrap();
+    //     // dbg!(vv.0);
+    //     println!("{}", String::from_utf8(vv.1.path).unwrap());
+    //     // dbg!(vv.1.node);
+    // }
+
+    println!("{}", query_result.count());
     return Ok(());
 }
