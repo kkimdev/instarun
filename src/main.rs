@@ -86,7 +86,8 @@ async fn main() -> Result<()> {
     for v in query_result {
         let vv = v.unwrap();
         dbg!(vv.0);
-        dbg!(vv.1.encode());
+        dbg!(vv.1.path);
+        dbg!(vv.1.node);
     }
     return Ok(());
 }
