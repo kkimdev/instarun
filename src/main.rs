@@ -22,8 +22,7 @@ use separator::Separatable;
 
 static CACHE_URL: &str = "https://cache.nixos.org/";
 
-#[tokio::main]
-async fn main() -> Result<()> {
+async fn attempt1() -> Result<()> {
     // https://github.com/nix-community/nix-index/blob/master/src/bin/nix-index.rs#L36
     let fetcher = Fetcher::new(CACHE_URL.to_string()).map_err(ErrorKind::ParseProxy)?;
     println!("checkpoint 1");
@@ -72,5 +71,22 @@ async fn main() -> Result<()> {
     eprintln!();
 
     println!("done");
+
+    return Ok(());
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    let mut reader = nix_index::database::Reader::open("index-x86_64-linux").unwrap();
+
+    // let result = reader.dump().unwrap();
+    let pattern = regex::bytes::Regex::new("/bin/.*").unwrap();
+    let query_result = reader.query(&pattern).run().unwrap();
+
+    for v in query_result {
+        let vv = v.unwrap();
+        dbg!(vv.0);
+        dbg!(vv.1.encode());
+    }
     return Ok(());
 }
