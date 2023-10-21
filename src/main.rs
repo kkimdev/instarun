@@ -20,6 +20,8 @@ use nix_index::package::StorePath;
 // use nix_index::CACHE_URL;
 use separator::Separatable;
 
+mod db;
+
 static CACHE_URL: &str = "https://cache.nixos.org/";
 
 async fn attempt1() -> Result<()> {
@@ -77,19 +79,24 @@ async fn attempt1() -> Result<()> {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let mut reader = nix_index::database::Reader::open("index-x86_64-linux").unwrap();
-
-    // let result = reader.dump().unwrap();
-    let pattern = regex::bytes::Regex::new("^/usr/bin/.*").unwrap();
-    let query_result = reader.query(&pattern).run().unwrap();
-
-    for v in query_result {
-        let vv = v.unwrap();
-        // dbg!(vv.0);
-        println!("{}", String::from_utf8(vv.1.path).unwrap());
-        // dbg!(vv.1.node);
-    }
-
-    // println!("{}", query_result.count());
+    db::test();
     return Ok(());
+
+    // let mut reader = nix_index::database::Reader::open("index-x86_64-linux").unwrap();
+
+    // // let result = reader.dump().unwrap();
+    // let pattern = regex::bytes::Regex::new("^/bin/.*").unwrap();
+    // let query_result = reader.query(&pattern).run().unwrap();
+
+    // for v in query_result {
+    //     let vv = v.unwrap();
+    //     dbg!(vv.0);
+    //     println!("{}", String::from_utf8(vv.1.path).unwrap());
+    //     // dbg!(vv.1.node);
+    // }
+
+    // // println!("{}", query_result.count());
+    // return Ok(());
 }
+
+// cargo run > "test.txt" && cat test.txt |sort|uniq > test2.txt
