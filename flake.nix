@@ -13,11 +13,11 @@
       in {
         devShell = pkgs.mkShell {
           buildInputs = [
-            # TODO: Migrate the followings
-            # curl?
             pkgs.bash
             pkgs.git
-            pkgs.rustup
+            pkgs.cargo
+            pkgs.pkg-config
+            pkgs.openssl
           ];
 
           shellHook = with pkgs; ''
