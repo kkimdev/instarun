@@ -13,7 +13,7 @@
       in {
         devShell = pkgs.mkShell {
           buildInputs = [
-            pkgs.bash
+            pkgs.bashInteractive
             pkgs.git
             pkgs.cargo
             pkgs.pkg-config
