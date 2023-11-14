@@ -4,7 +4,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
   title: "Instarun",
-  tagline: "Just run it",
+  tagline: "Just run it™",
 
   // TODO: Add favicon
   // favicon: "img/favicon.ico",
